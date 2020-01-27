@@ -73,15 +73,15 @@
   become: yes
 
 - name: Set zsh as default shell
-user:
-  name: "{{ zsh_user }}"
-  shell: /bin/zsh
-become: true
-when: not zsh_shared
+  user:
+    name: "{{ zsh_user }}"
+    shell: /bin/zsh
+  become: true
+  when: not zsh_shared
 
 - name: Set zsh as default shell for root
-user:
-  name: root
-  shell: /bin/zsh
-become: true
-when: not zsh_shared
+  user:
+    name: root
+    shell: /bin/zsh
+  become: true
+  when: not zsh_shared
