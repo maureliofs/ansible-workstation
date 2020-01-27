@@ -13,7 +13,7 @@
 
 - name: Install packages
   dnf:
-    name: {{ packages }}
+    name: "{{ packages }}"
     state: latest
   become: yes
 
@@ -32,12 +32,12 @@
 
 - name: Install snap packages
   snap:
-    name: {{ snap_packages }}
+    name: "{{ snap_packages }}"
   become: yes
 
 - name: Install snap packages --classic
   snap:
-    name: {{ snap_classic_packages }}
+    name: "{{ snap_classic_packages }}"
     classic: yes
   become: yes
 
