@@ -10,7 +10,7 @@ packages:
   - vim
   - transmission
   - snapd
-  - dnfgragora
+  - dnfdragora
   - flameshot
   - powerline-fonts
   - nautilus-dropbox
