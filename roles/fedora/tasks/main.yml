@@ -5,11 +5,18 @@
     update_only: yes
   become: yes
 
-- name: Install rpm fusion
+- name: Install free rpm fusion
   dnf:
-    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
     state: latest
   become: yes
+
+- name: Install nonfree rpm fusion
+  dnf:
+    name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    state: latest
+  become: yes
+
 
 - name: Install packages
   dnf:
