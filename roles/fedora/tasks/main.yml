@@ -1,5 +1,5 @@
 ---
-- name: upgrade all packages
+- name: Upgrade all packages
   dnf:
     name: "*"
     state: latest
@@ -11,7 +11,7 @@
     state: present
   become: yes
 
-- name: Add rpmfusion none free
+- name: Add rpmfusion nonfree
   dnf:
     name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present

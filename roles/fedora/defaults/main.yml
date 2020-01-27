@@ -27,7 +27,3 @@ snap_packages:
 
 snap_classic_packages:
   - code
-
-zsh_user: "{{ ansible_user_id }}"
-
-ansible_distribution_major_version: 31
