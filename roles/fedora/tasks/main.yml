@@ -1,20 +1,21 @@
 ---
-- name: Update system
+- name: upgrade all packages
   dnf:
+    name: "*"
     state: latest
-    update_only: yes
   become: yes
 
 - name: Add rpmfusion free
   dnf:
     name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
+  become: yes
 
 - name: Add rpmfusion none free
   dnf:
     name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
-
+  become: yes
 
 - name: Install packages
   dnf:
@@ -45,48 +46,3 @@
     name: "{{ snap_classic_packages }}"
     classic: yes
   become: yes
-
-- name: Download oh-my-zsh script
-  get_url:
-    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    dest: /tmp/install.sh
-    mode: '0740'
-
-- name: Install oh-my-zsh
-  shell: /tmp/install.sh
-
-- name: Cloning zsh-syntax-highlighting oh-my-zsh plugins repo
-  git:
-    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: ~/.oh-my-zsh/custom/plugins
-
-- name: Cloning zsh-autosuggestions oh-my-zsh plugins repo
-  git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: ~/.oh-my-zsh/custom/plugins
-
-- name: Copia o .zshrc pro home
-  copy:
-    src: 'files/zshrc'
-    dest: '~/.zshrc'
-  become: yes
-
-- name: Copia o .zshrc pro root
-  copy:
-    src: 'files/zshrc'
-    dest: '/root/.zshrc'
-  become: yes
-
-- name: Set zsh as default shell
-  user:
-    name: "{{ zsh_user }}"
-    shell: /bin/zsh
-  become: true
-  when: not zsh_shared
-
-- name: Set zsh as default shell for root
-  user:
-    name: root
-    shell: /bin/zsh
-  become: true
-  when: not zsh_shared
