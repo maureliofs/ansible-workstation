@@ -1,0 +1,87 @@
+---
+- name: Update system
+  dnf:
+    state: latest
+    update_only: yes
+  become: yes
+
+- name: Install rpm fusion
+  dnf:
+    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    state: latest
+  become: yes
+
+- name: Install packages
+  dnf:
+    name: {{ packages }}
+    state: latest
+  become: yes
+
+- name: Install Google Chrome
+  dnf:
+    name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    state: latest
+  become: yes
+
+- name: Create symbolic link for snap
+  file:
+    src: "/var/lib/snapd/snap"
+    dest: "/snap"
+    state: link
+  become: yes
+
+- name: Install snap packages
+  snap:
+    name: {{ snap_packages }}
+  become: yes
+
+- name: Install snap packages --classic
+  snap:
+    name: {{ snap_classic_packages }}
+    classic: yes
+  become: yes
+
+- name: Download oh-my-zsh script
+  get_url:
+    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /tmp/install.sh
+    mode: '0740'
+
+- name: Install oh-my-zsh
+  shell: /tmp/install.sh
+
+- name: Cloning zsh-syntax-highlighting oh-my-zsh plugins repo
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins
+
+- name: Cloning zsh-autosuggestions oh-my-zsh plugins repo
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins
+
+- name: Copia o .zshrc pro home
+  copy:
+    src: 'files/zshrc'
+    dest: '~/.zshrc'
+  become: yes
+
+- name: Copia o .zshrc pro root
+  copy:
+    src: 'files/zshrc'
+    dest: '/root/.zshrc'
+  become: yes
+
+- name: Set zsh as default shell
+user:
+  name: "{{ zsh_user }}"
+  shell: /bin/zsh
+become: true
+when: not zsh_shared
+
+- name: Set zsh as default shell for root
+user:
+  name: root
+  shell: /bin/zsh
+become: true
+when: not zsh_shared

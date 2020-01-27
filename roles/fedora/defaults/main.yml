@@ -1,0 +1,31 @@
+---
+packages:
+  - gnome-tweak-tool
+  - git
+  - curl
+  - wget
+  - vlc
+  - zsh
+  - tilix
+  - vim
+  - transmission
+  - snapd
+  - dnfgragora
+  - flameshot
+  - powerline-fonts
+  - nautilus-dropbox
+  - java-1.8.0-openjdk-devel.x86_64
+  - vagrant
+  - docker
+
+snap_packages:
+  - spotify
+  - mailspring
+  - remmina
+  - wps-office-all-lang-no-internet
+  - simplenote
+
+snap_classic_packages:
+  - code
+
+zsh_user: "{{ ansible_user_id }}"
