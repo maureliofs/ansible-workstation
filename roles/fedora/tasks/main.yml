@@ -53,6 +53,9 @@
     dest: /tmp/zsh-installer.sh
 
 - name: Execute the zsh-installer.sh
+  file: 
+    dest: /tmp/zsh-installer.sh
+    mode: a+x
   shell: /tmp/zsh-installer.sh
   become: yes
 
