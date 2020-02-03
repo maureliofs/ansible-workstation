@@ -46,3 +46,82 @@
     name: "{{ snap_classic_packages }}"
     classic: yes
   become: yes
+
+- name: Download Oh-My-Zsh
+  get_url:
+    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
+    dest: /tmp/zsh-installer.sh
+
+- name: Execute the zsh-installer.sh
+  shell: /tmp/zsh-installer.sh
+
+- name: Remove .zshrc file (delete file)
+  file:
+    path: ~/.zshrc
+    state: absent
+  become: yes
+
+- name: Remove .zshrc file (delete file)
+  file:
+    path: /root/.zshrc
+    state: absent
+  become: yes
+
+- name: copy .zshrc file
+  copy:
+    src: 'files/zshrc'
+    dest: '~/.zshrc'
+  become: yes
+
+- name: copy .zshrc file
+  copy:
+    src: 'files/zshrc'
+    dest: '/root/.zshrc'
+  become: yes
+
+- name: Create a zsh plugins directory for user if it does not exist
+  file:
+    path: ~/.oh-my-zsh/custom/plugins/
+    state: directory
+    mode: '0755'
+
+- name: Create a zsh plugins directory for root if it does not exist
+  file:
+    path: /root/.oh-my-zsh/custom/plugins/
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Clone zsh-syntax-highlighting repo for user
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/
+
+- name: Clone zsh-autosuggestions repo for user
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/custom/plugins/
+
+- name: Clone zsh-syntax-highlighting repo for root
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: /root/.oh-my-zsh/custom/plugins/
+  become: yes
+
+- name: Clone zsh-autosuggestions repo for root
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: /root/.oh-my-zsh/custom/plugins/
+  become: yes
+
+- name: Clone zsh-syntax-highlighting repo for user
+  git:
+    repo: https://github.com/denysdovhan/spaceship-prompt.git
+    dest: ~/.oh-my-zsh/custom/themes/spaceship-prompt
+
+- name: Add FiraCode fonts repo
+  command: 'dnf copr enable evana/fira-code-fonts'
+
+- name: Install FiraCode fonts
+  dnf:
+    name: fira-code-fonts
