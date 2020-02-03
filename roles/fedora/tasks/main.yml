@@ -52,10 +52,12 @@
     url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
     dest: /tmp/zsh-installer.sh
 
-- name: Execute the zsh-installer.sh
+- name: execution permission to zsh-installer
   file: 
     dest: /tmp/zsh-installer.sh
     mode: a+x
+
+- name: Execute the zsh-installer.sh
   shell: /tmp/zsh-installer.sh
   become: yes
 
