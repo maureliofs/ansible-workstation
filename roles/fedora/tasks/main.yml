@@ -61,6 +61,9 @@
   shell: /tmp/zsh-installer.sh
   become: yes
 
+- name: Execute the zsh-installer.sh
+  shell: /tmp/zsh-installer.sh
+
 - name: Remove .zshrc file (delete file)
   file:
     path: ~/.zshrc
