@@ -110,27 +110,27 @@
 - name: Clone zsh-syntax-highlighting repo for user
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: /home/mrc/.oh-my-zsh/custom/plugins/
+    dest: /home/mrc/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
   become: yes
   become_user: mrc
 
 - name: Clone zsh-autosuggestions repo for user
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: /home/mrc/.oh-my-zsh/custom/plugins/
+    dest: /home/mrc/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   become: yes
   become_user: mrc
 
 - name: Clone zsh-syntax-highlighting repo for root
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: /root/.oh-my-zsh/custom/plugins/
+    dest: /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
   become: yes
 
 - name: Clone zsh-autosuggestions repo for root
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: /root/.oh-my-zsh/custom/plugins/
+    dest: /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   become: yes
 
 - name: Clone spaceship repo for user
