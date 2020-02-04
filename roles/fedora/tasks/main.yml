@@ -110,14 +110,14 @@
 - name: Clone zsh-syntax-highlighting repo for user
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    separate_git_dir: ~/.oh-my-zsh/custom/plugins/
+    separate_git_dir: /home/mrc/.oh-my-zsh/custom/plugins/
   become: yes
   become_user: mrc
 
 - name: Clone zsh-autosuggestions repo for user
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    separate_git_dir: ~/.oh-my-zsh/custom/plugins/
+    separate_git_dir: /home/mrc/.oh-my-zsh/custom/plugins/
   become: yes
   become_user: mrc
 
@@ -133,7 +133,7 @@
     separate_git_dir: /root/.oh-my-zsh/custom/plugins/
   become: yes
 
-- name: Clone zsh-syntax-highlighting repo for user
+- name: Clone spaceship repo for user
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
     separate_git_dir: ~/.oh-my-zsh/custom/themes/spaceship-prompt
