@@ -141,7 +141,8 @@
   become_user: mrc
 
 - name: Add FiraCode fonts repo
-  command: 'dnf copr enable evana/fira-code-fonts'
+  command: 'dnf copr enable evana/fira-code-fonts -y'
+  creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:evana:fira-code-fonts.repo 
   become: yes
 
 - name: Install FiraCode fonts
