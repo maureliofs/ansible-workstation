@@ -140,6 +140,13 @@
   become: yes
   become_user: mrc
 
+- name: Clone spaceship repo for root
+  git:
+    repo: https://github.com/denysdovhan/spaceship-prompt.git
+    dest: /root/.oh-my-zsh/custom/themes/spaceship-prompt
+  become: yes
+  become_user: root
+
 - name: Create symbolic link for spaceship for root
   file:
     src: "/root/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
@@ -153,13 +160,6 @@
     dest: "/home/mrc/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
     state: link
   become: yes
-
-- name: Clone spaceship repo for root
-  git:
-    repo: https://github.com/denysdovhan/spaceship-prompt.git
-    dest: /root/.oh-my-zsh/custom/themes/spaceship-prompt
-  become: yes
-  become_user: root
 
 - name: Add FiraCode fonts repo
   command: 'dnf copr enable evana/fira-code-fonts -y'
