@@ -58,21 +58,18 @@
     mode: a+x
 
 - name: Execute the zsh-installer.sh
-  user:
-    name: root
   shell: /tmp/zsh-installer.sh
   become: yes
 
 - name: Execute the zsh-installer.sh
-  user:
-    name: mrc
   shell: /tmp/zsh-installer.sh
+  become: mrc
 
 - name: Remove .zshrc file (delete file)
   file:
     path: ~/.zshrc
     state: absent
-  become: yes
+  become: mrc
 
 - name: Remove .zshrc file (delete file)
   file:
@@ -84,7 +81,7 @@
   copy:
     src: 'files/zshrc'
     dest: '~/.zshrc'
-  become: yes
+  become: mrc
 
 - name: copy .zshrc file
   copy:
@@ -97,7 +94,7 @@
     path: ~/.oh-my-zsh/custom/plugins/
     state: directory
     mode: '0755'
-  become: yes
+  become: mrc
 
 - name: Create a zsh plugins directory for root if it does not exist
   file:
@@ -110,13 +107,13 @@
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     separate_git_dir: ~/.oh-my-zsh/custom/plugins/
-  become: yes
+  become: mrc
 
 - name: Clone zsh-autosuggestions repo for user
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
     separate_git_dir: ~/.oh-my-zsh/custom/plugins/
-  become: yes
+  become: mrc
 
 - name: Clone zsh-syntax-highlighting repo for root
   git:
@@ -134,7 +131,7 @@
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
     separate_git_dir: ~/.oh-my-zsh/custom/themes/spaceship-prompt
-  become: yes
+  become: mrc
 
 - name: Add FiraCode fonts repo
   command: 'dnf copr enable evana/fira-code-fonts'
