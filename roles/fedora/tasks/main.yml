@@ -185,5 +185,13 @@
     path: /home/mrc/.oh-my-zsh/
     state: directory
     recurse: yes
-    mode: '0777'
+    mode: '0755'
+  become: yes
+
+- name: change zsh permissions
+  file:
+    path: /root/mrc/.oh-my-zsh/
+    state: directory
+    recurse: yes
+    mode: '0755'
   become: yes
