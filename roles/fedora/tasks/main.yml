@@ -136,13 +136,26 @@
 - name: Clone spaceship repo for user
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
-    dest: ~/.oh-my-zsh/custom/themes/spaceship-prompt
+    dest: /home/mrc/.oh-my-zsh/custom/themes/spaceship-prompt
   become: yes
   become_user: mrc
 
+- name: Create symbolic link for spaceship
+  file:
+    src: "/root/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "/root/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link
+  become: yes
+
+- name: Clone spaceship repo for root
+  git:
+    repo: https://github.com/denysdovhan/spaceship-prompt.git
+    dest: /root/.oh-my-zsh/custom/themes/spaceship-prompt
+  become: yes
+  become_user: root
+
 - name: Add FiraCode fonts repo
   command: 'dnf copr enable evana/fira-code-fonts -y'
-  creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:evana:fira-code-fonts.repo 
   become: yes
 
 - name: Install FiraCode fonts
