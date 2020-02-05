@@ -1,58 +1,10 @@
 ---
-- name: Upgrade all packages
-  dnf:
-    name: "*"
-    state: latest
-  become: yes
-
-- name: Add rpmfusion free
-  dnf:
-    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-    state: present
-  become: yes
-
-- name: Add rpmfusion nonfree
-  dnf:
-    name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-    state: present
-  become: yes
-
-- name: Install packages
-  dnf:
-    name: "{{ packages }}"
-    state: latest
-  become: yes
-
-- name: Install Google Chrome
-  dnf:
-    name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-    state: latest
-  become: yes
-
-- name: Create symbolic link for snap
-  file:
-    src: "/var/lib/snapd/snap"
-    dest: "/snap"
-    state: link
-  become: yes
-
-- name: Install snap packages
-  snap:
-    name: "{{ snap_packages }}"
-  become: yes
-
-- name: Install snap packages --classic
-  snap:
-    name: "{{ snap_classic_packages }}"
-    classic: yes
-  become: yes
-
 - name: Download Oh-My-Zsh
   get_url:
     url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
     dest: /tmp/zsh-installer.sh
 
-- name: execution permission to zsh-installer
+- name: Execution permission to zsh-installer
   file: 
     dest: /tmp/zsh-installer.sh
     mode: a+x
