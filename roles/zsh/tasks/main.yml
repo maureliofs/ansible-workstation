@@ -9,50 +9,51 @@
     dest: /tmp/zsh-installer.sh
     mode: a+x
 
-- name: Execute the zsh-installer.sh
-  shell: /tmp/zsh-installer.sh
+- name: Execute the zsh-installer.sh for user
+  shell: sh /tmp/zsh-installer.sh
   become: yes
+  become_user: "{{ ansible_user_id }}"
 
-- name: Execute the zsh-installer.sh
-  shell: /tmp/zsh-installer.sh
+- name: Execute the zsh-installer.sh for root
+  shell: sh /tmp/zsh-installer.sh
   become: yes
-  become_user: mrc
+  become_user: root
 
-- name: Remove .zshrc file (delete file)
+- name: Remove .zshrc file (delete file) for user
   file:
     path: ~/.zshrc
     state: absent
   become: yes
-  become_user: mrc
+  become_user: "{{ ansible_user_id }}"
 
-- name: Remove .zshrc file (delete file)
+- name: Remove .zshrc file (delete file) for root
   file:
     path: /root/.zshrc
     state: absent
   become: yes
 
-- name: copy .zshrc file
+- name: copy .zshrc file for user
   copy:
     src: 'files/zshrc'
     dest: '~/.zshrc'
   become: yes
-  become_user: mrc
+  become_user: "{{ ansible_user_id }}"
 
-- name: copy .zshrc file
+- name: copy .zshrc file for root
   copy:
     src: 'files/zshrc'
     dest: '/root/.zshrc'
   become: yes
 
-- name: Create a zsh plugins directory for user if it does not exist
+- name: Create a zsh plugins directory for user if it does not exist for user
   file:
     path: ~/.oh-my-zsh/custom/plugins/
     state: directory
     mode: '0755'
   become: yes
-  become_user: mrc
+  become_user: "{{ ansible_user_id }}"
 
-- name: Create a zsh plugins directory for root if it does not exist
+- name: Create a zsh plugins directory for root if it does not exist for root
   file:
     path: /root/.oh-my-zsh/custom/plugins/
     state: directory
@@ -62,16 +63,16 @@
 - name: Clone zsh-syntax-highlighting repo for user
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: /home/mrc/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    dest: "/home/{{ ansible_user_id }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
   become: yes
-  become_user: mrc
+  become_user: "{{ ansible_user_id }}"
 
 - name: Clone zsh-autosuggestions repo for user
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions.git
-    dest: /home/mrc/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    dest: "/home/{{ ansible_user_id }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
   become: yes
-  become_user: mrc
+  become_user: "{{ ansible_user_id }}"
 
 - name: Clone zsh-syntax-highlighting repo for root
   git:
@@ -88,9 +89,9 @@
 - name: Clone spaceship repo for user
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
-    dest: /home/mrc/.oh-my-zsh/custom/themes/spaceship-prompt
+    dest: "/home/{{ ansible_user_id }}/.oh-my-zsh/custom/themes/spaceship-prompt"
   become: yes
-  become_user: mrc
+  become_user: "{{ ansible_user_id }}"
 
 - name: Clone spaceship repo for root
   git:
@@ -99,17 +100,17 @@
   become: yes
   become_user: root
 
+- name: Create symbolic link for spaceship for user
+  file:
+    src: "/home/{{ ansible_user_id }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "/home/{{ ansible_user_id }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link
+  become: yes
+
 - name: Create symbolic link for spaceship for root
   file:
     src: "/root/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
     dest: "/root/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-    state: link
-  become: yes
-
-- name: Create symbolic link for spaceship for user
-  file:
-    src: "/home/mrc/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
-    dest: "/home/mrc/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
     state: link
   become: yes
 
@@ -122,25 +123,25 @@
     name: fira-code-fonts
   become: yes
 
-- name: Change shell padrão
+- name: Change shell padrão for user
   user:
-    name: mrc
+    name: "{{ ansible_user_id }}"
     shell: /usr/bin/zsh
 
-- name: Change shell padrão
+- name: Change shell padrão for root
   user:
     name: root
     shell: /usr/bin/zsh
 
-- name: change zsh permissions
+- name: change zsh permissions for user
   file:
-    path: /home/mrc/.oh-my-zsh/
+    path: "/home/{{ ansible_user_id }}/.oh-my-zsh/"
     state: directory
     recurse: yes
     mode: '0755'
   become: yes
 
-- name: change zsh permissions
+- name: change zsh permissions for root
   file:
     path: /root/.oh-my-zsh/
     state: directory
