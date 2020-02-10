@@ -1,0 +1,62 @@
+---
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+  become: yes
+
+- name: Install packages
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  become: yes
+
+- name: Download Google Chrome
+  get_url: 
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: /tmp/google-chrome-stable_current_amd64.deb
+    mode: '0755'
+
+- name: Install Google Chrome
+  apt:
+    deb: /tmp/google-chrome-stable_current_amd64.deb
+  become: yes
+
+- name: Install Spotify Flatpak
+  flatpak:
+    name: https://flathub.org/repo/appstream/com.spotify.Client.flatpakref 
+    state: present
+  become: yes
+
+- name: Install Remmina Flatpak
+  flatpak:
+    name:  https://flathub.org/repo/appstream/org.remmina.Remmina.flatpakref
+    state: present
+  become: yes
+
+- name: Install Telegram Flatpak
+  flatpak:
+    name: https://flathub.org/repo/appstream/org.telegram.desktop.flatpakref
+    state: present
+  become: yes
+
+- name: Install RocketChat Flatpak
+  flatpak:
+    name: https://flathub.org/repo/appstream/chat.rocket.RocketChat.flatpakref
+    state: present
+  become: yes
+
+- name: Install snap packages
+  snap:
+    name: "{{ snap_packages }}"
+  become: yes
+
+- name: Install snap packages --classic
+  snap:
+    name: "{{ snap_classic_packages }}"
+    classic: yes
+  become: yes

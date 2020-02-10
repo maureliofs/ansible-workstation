@@ -17,6 +17,10 @@
     state: present
   become: yes
 
+- name: Add FiraCode fonts repo
+  command: 'dnf copr enable evana/fira-code-fonts -y'
+  become: yes
+
 - name: Install packages
   dnf:
     name: "{{ packages }}"
@@ -27,6 +31,30 @@
   dnf:
     name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
     state: latest
+  become: yes
+
+- name: Install Spotify Flatpak
+  flatpak:
+    name: https://flathub.org/repo/appstream/com.spotify.Client.flatpakref 
+    state: present
+  become: yes
+
+- name: Install Remmina Flatpak
+  flatpak:
+    name:  https://flathub.org/repo/appstream/org.remmina.Remmina.flatpakref
+    state: present
+  become: yes
+
+- name: Install Telegram Flatpak
+  flatpak:
+    name: https://flathub.org/repo/appstream/org.telegram.desktop.flatpakref
+    state: present
+  become: yes
+
+- name: Install RocketChat Flatpak
+  flatpak:
+    name: https://flathub.org/repo/appstream/chat.rocket.RocketChat.flatpakref
+    state: present
   become: yes
 
 - name: Create symbolic link for snap

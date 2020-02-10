@@ -1,21 +1,39 @@
 # ansible-workstation
-Playbook ansible usado para configurar meu ambiente de trabalho fedora.
+Playbook ansible usado para configurar meu ambiente de trabalho Fedora ou Ubuntu.
 
 ## Pré-requisitos:
 * Python
-```shell
-$ dnf install python
-```
+
 * Ansible
+  
+1. Instalação do Ansible no Fedora via dnf:
 ```shell
-$ dnf install ansible
-        ou
-$ pip install ansible
+sudo dnf install ansible
 ```
+
+2. Instalação do Ansible no Ubuntu via apt:
+```shell
+sudo apt install ansible
+```
+
+3. Instalação do Ansible via pip:
+```shell
+pip install ansible
+```
+
 * Git
+1. Instalação do Git no Fedora:
 ```shell
-$ dnf install git
+sudo dnf install git
 ```
+
+2. Instalação do Git no Ubuntu:
+```shell
+sudo apt install git
+```
+
+### Execução do Playbook
+
 1. Clone o repositório usando o comando:
 
 ```shell

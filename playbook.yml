@@ -1,7 +1,8 @@
 ---
 - hosts: localhost
-  roles: 
-    - programas
+  roles:
+    - { role: "fedora", when: (ansible_distribution == 'Fedora') }
+    - { role: "ubuntu", when: (ansible_distribution == 'Ubuntu') }
     - zsh
   vars:
     ansible_user_id: mrc

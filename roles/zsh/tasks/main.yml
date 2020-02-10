@@ -1,7 +1,7 @@
 ---
 - name: Download Oh-My-Zsh
   get_url:
-    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
+    url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/zsh-installer.sh
 
 - name: Execution permission to zsh-installer
@@ -10,12 +10,12 @@
     mode: a+x
 
 - name: Execute the zsh-installer.sh for user
-  shell: sh /tmp/zsh-installer.sh
+  script: /tmp/zsh-installer.sh
   become: yes
   become_user: "{{ ansible_user_id }}"
 
 - name: Execute the zsh-installer.sh for root
-  shell: sh /tmp/zsh-installer.sh
+  script: /tmp/zsh-installer.sh
   become: yes
   become_user: root
 
@@ -112,15 +112,6 @@
     src: "/root/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
     dest: "/root/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
     state: link
-  become: yes
-
-- name: Add FiraCode fonts repo
-  command: 'dnf copr enable evana/fira-code-fonts -y'
-  become: yes
-
-- name: Install FiraCode fonts
-  dnf:
-    name: fira-code-fonts
   become: yes
 
 - name: Change shell padrão for user

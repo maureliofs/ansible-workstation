@@ -1,0 +1,29 @@
+---
+packages:
+  - gnome-tweak-tool
+  - git
+  - curl
+  - wget
+  - vlc
+  - zsh
+  - tilix
+  - vim
+  - transmission
+  - snapd
+  - flatpak
+  - dnfdragora
+  - flameshot
+  - powerline-fonts
+  - nautilus-dropbox
+  - java-1.8.0-openjdk-devel.x86_64
+  - vagrant
+  - docker
+  - fira-code-fonts
+
+snap_packages:
+  - mailspring
+  - wps-office-all-lang-no-internet
+  - simplenote
+
+snap_classic_packages:
+  - code

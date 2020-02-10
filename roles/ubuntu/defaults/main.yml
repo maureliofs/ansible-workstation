@@ -9,19 +9,18 @@ packages:
   - tilix
   - vim
   - transmission
-  - snapd
-  - dnfdragora
+  - flatpak
+  - synaptic
   - flameshot
-  - powerline-fonts
+  - fonts-powerline
   - nautilus-dropbox
-  - java-1.8.0-openjdk-devel.x86_64
+  - openjdk-8-jdk
   - vagrant
   - docker
+  - fonts-firacode  
 
 snap_packages:
-  - spotify
   - mailspring
-  - remmina
   - wps-office-all-lang-no-internet
   - simplenote
 
