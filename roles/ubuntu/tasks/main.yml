@@ -60,3 +60,14 @@
     name: "{{ snap_classic_packages }}"
     classic: yes
   become: yes
+
+- name: Download VirtualBox for Ubuntu 19.10
+  get_url: 
+    url: https://download.virtualbox.org/virtualbox/6.1.2/virtualbox-6.1_6.1.2-135662~Ubuntu~eoan_amd64.deb
+    dest: /tmp/virtualbox-6.1_6.1.2-135662~Ubuntu~eoan_amd64.deb
+    mode: '0755'
+
+- name: Install VirtualBox for Ubuntu 19.10
+  apt:
+    deb: /tmp/virtualbox-6.1_6.1.2-135662~Ubuntu~eoan_amd64.deb
+  become: yes

@@ -74,3 +74,9 @@
     name: "{{ snap_classic_packages }}"
     classic: yes
   become: yes
+
+- name: Install VirtualBox Fedora 31
+  dnf:
+    name: https://download.virtualbox.org/virtualbox/6.1.2/VirtualBox-6.1-6.1.2_135662_fedora31-1.x86_64.rpm
+    state: latest
+  become: yes

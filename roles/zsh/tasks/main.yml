@@ -33,16 +33,16 @@
   become: yes
 
 - name: copy .zshrc file for user
-  copy:
-    src: 'files/zshrc'
-    dest: '~/.zshrc'
+  template:
+    src: "templates/zshrc.j2"
+    dest: "/home/{{ ansible_user_id }}/.zshrc"
   become: yes
   become_user: "{{ ansible_user_id }}"
 
 - name: copy .zshrc file for root
-  copy:
-    src: 'files/zshrc'
-    dest: '/root/.zshrc'
+  template:
+    src: "templates/zshrc.j2"
+    dest: "/root/.zshrc"
   become: yes
 
 - name: Create a zsh plugins directory for user if it does not exist for user
