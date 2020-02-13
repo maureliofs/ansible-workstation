@@ -1,5 +1,5 @@
 # ansible-workstation
-Playbook ansible usado para configurar meu ambiente de trabalho Fedora ou Ubuntu.
+Playbook ansible usado para configurar meu ambiente de trabalho Fedora ou Ubuntu/Debian.
 
 ## Pré-requisitos:
 * Python
@@ -46,7 +46,7 @@ git clone https://github.com/maureliofs/ansible-workstation
 cd ansible-workstation
 ```
 
-Para editar os pacotes a serem instalados basta ir no arquivo `roles/programas/defaults/main.yml` e adicionar ou remover os pacotes desejados.
+Para editar os pacotes a serem instalados basta ir no arquivo `roles/fedora/defaults/main.yml`, caso a distribuição seja o Fedora ou  `roles/ubuntu/defaults/main.yml`, caso seja Ubuntu/Debian e adicionar ou remover os pacotes desejados.
 
 No arquivo `playbook.yml` edite o valor da variável `ansible_user_id` para o nome do seu usuário do sistema.
 
