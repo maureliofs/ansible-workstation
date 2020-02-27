@@ -6,7 +6,8 @@
 
 - name: Update all packages to the latest version
   apt:
-    upgrade: dist
+    name: "*"
+    state: latest
   become: yes
 
 - name: Install packages
@@ -26,28 +27,29 @@
     deb: /tmp/google-chrome-stable_current_amd64.deb
   become: yes
 
+- name: Add the Flathub repository
+  shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  become: yes
+
+- name: apt-get update
+  apt:
+    update_cache: yes
+  become: yes
+
 - name: Install Spotify Flatpak
-  flatpak:
-    name: https://flathub.org/repo/appstream/com.spotify.Client.flatpakref 
-    state: present
+  shell: flatpak install flathub com.spotify.Client -y
   become: yes
 
 - name: Install Remmina Flatpak
-  flatpak:
-    name:  https://flathub.org/repo/appstream/org.remmina.Remmina.flatpakref
-    state: present
+  shell: flatpak install flathub org.remmina.Remmina -y
   become: yes
 
 - name: Install Telegram Flatpak
-  flatpak:
-    name: https://flathub.org/repo/appstream/org.telegram.desktop.flatpakref
-    state: present
+  shell: flatpak install flathub org.telegram.desktop -y
   become: yes
 
 - name: Install RocketChat Flatpak
-  flatpak:
-    name: https://flathub.org/repo/appstream/chat.rocket.RocketChat.flatpakref
-    state: present
+  shell: flatpak install flathub chat.rocket.RocketChat -y
   become: yes
 
 - name: Install snap packages
@@ -61,13 +63,13 @@
     classic: yes
   become: yes
 
-- name: Download VirtualBox for Ubuntu 19.10
+- name: Download VirtualBox for Ubuntu 18.04 LTS
   get_url: 
-    url: https://download.virtualbox.org/virtualbox/6.1.2/virtualbox-6.1_6.1.2-135662~Ubuntu~eoan_amd64.deb
-    dest: /tmp/virtualbox-6.1_6.1.2-135662~Ubuntu~eoan_amd64.deb
+    url: https://download.virtualbox.org/virtualbox/6.1.2/virtualbox-6.1_6.1.2-135662~Ubuntu~bionic_amd64.deb
+    dest: /tmp/virtualbox-6.1_6.1.2-135662~Ubuntu~bionic_amd64.deb
     mode: '0755'
 
-- name: Install VirtualBox for Ubuntu 19.10
+- name: Install VirtualBox for Ubuntu 18.04 LTS
   apt:
-    deb: /tmp/virtualbox-6.1_6.1.2-135662~Ubuntu~eoan_amd64.deb
+    deb: /tmp/virtualbox-6.1_6.1.2-135662~Ubuntu~bionic_amd64.deb
   become: yes

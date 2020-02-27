@@ -9,15 +9,10 @@
     dest: /tmp/zsh-installer.sh
     mode: a+x
 
-- name: Execute the zsh-installer.sh for user
+- name: Execute the zsh-installer.sh
   script: /tmp/zsh-installer.sh
   become: yes
   become_user: "{{ ansible_user_id }}"
-
-- name: Execute the zsh-installer.sh for root
-  script: /tmp/zsh-installer.sh
-  become: yes
-  become_user: root
 
 - name: Remove .zshrc file (delete file) for user
   file:

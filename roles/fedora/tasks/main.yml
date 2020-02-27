@@ -33,28 +33,24 @@
     state: latest
   become: yes
 
+- name: Add the Flathub repository
+  shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  become: yes
+
 - name: Install Spotify Flatpak
-  flatpak:
-    name: https://flathub.org/repo/appstream/com.spotify.Client.flatpakref 
-    state: present
+  shell: flatpak install flathub com.spotify.Client -y
   become: yes
 
 - name: Install Remmina Flatpak
-  flatpak:
-    name:  https://flathub.org/repo/appstream/org.remmina.Remmina.flatpakref
-    state: present
+  shell: flatpak install flathub org.remmina.Remmina -y
   become: yes
 
 - name: Install Telegram Flatpak
-  flatpak:
-    name: https://flathub.org/repo/appstream/org.telegram.desktop.flatpakref
-    state: present
+  shell: flatpak install flathub org.telegram.desktop -y
   become: yes
 
 - name: Install RocketChat Flatpak
-  flatpak:
-    name: https://flathub.org/repo/appstream/chat.rocket.RocketChat.flatpakref
-    state: present
+  shell: flatpak install flathub chat.rocket.RocketChat -y
   become: yes
 
 - name: Create symbolic link for snap
